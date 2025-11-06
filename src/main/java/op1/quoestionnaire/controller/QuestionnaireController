@@ -1,0 +1,8 @@
+package op1.quoestionnaire.controller;
+
+@controller
+public class quoestionnaireController{
+    public quoestionnaireController() {
+        
+    }
+}
