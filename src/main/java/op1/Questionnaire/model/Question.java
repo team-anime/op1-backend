@@ -1,4 +1,4 @@
-package op1.quoestionnaire.model;
+package op1.Questionnaire.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

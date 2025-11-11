@@ -1,17 +1,18 @@
-package op1.quoestionnaire.controller;
+package op1.Questionnaire.controller;
 
-import op1.quoestionnaire.model.QuestionnaireRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import op1.Questionnaire.model.QuestionnaireRepository;
+
 
 @Controller
-public class quoestionnaireMVController{
+public class QuestionnaireMVController{
     private final QuestionnaireRepository questionnaireRepository;
 
-    public quoestionnaireMVController(QuestionnaireRepository questionnaireRepository) {
+    public QuestionnaireMVController(QuestionnaireRepository questionnaireRepository) {
         this.questionnaireRepository = questionnaireRepository;
     }
 
