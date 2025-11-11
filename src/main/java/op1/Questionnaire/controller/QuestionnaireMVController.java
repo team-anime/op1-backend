@@ -23,21 +23,17 @@ public class QuestionnaireMVController{
     }
     
 
-    @RequestMapping("/addQuestionnaire")
-    public String addQuestionnaire(@RequestParam(name="name", required=false) String name) {
-        if(name != "" && name != null) {
-            Questionnaire questionnaire = new Questionnaire();
-            questionnaire.setName(name);
-            questionnaireRepository.save(questionnaire);
-            return "redirect:index";
-        }
+    @RequestMapping(value = "/addQuestionnaire")
+    public String addQuestionnaire() {
         return "addQuestionnaire";
     }
 
-    // @RequestMapping(value = "/addQuestionnaire", method = RequestMethod.POST)
-    // public String addQuestionnaire(Model model){
-    // 	model.addAttribute("questionnaire", new Questionnaire());
-    //     return "addQuestionnaire";
-    // }
+    @RequestMapping(value = "/saveQuestionnaire", method = RequestMethod.POST)
+    public String saveQuestionnaire(@RequestParam(name="name", required=true) String name) {
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setName(name);
+        questionnaireRepository.save(questionnaire);
 
+        return "redirect:index";
+    }
 }
