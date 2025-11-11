@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 public class Questionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ManyToOne
     private Long id;
     private String name;
 
