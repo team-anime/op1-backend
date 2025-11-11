@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import op1.Questionnaire.model.Questionnaire;
 import op1.Questionnaire.model.QuestionnaireRepository;
 
 
@@ -17,7 +18,13 @@ public class QuestionnaireMVController{
     }
 
     @RequestMapping("/addQuestionnaire")
-    public String addQuestionnaire() {
+    public String addQuestionnaire(@RequestParam(name="name", required=false) String name) {
+        if(name != null) {
+            Questionnaire questionnaire = new Questionnaire();
+            questionnaire.setName(name);
+            questionnaireRepository.save(questionnaire);
+            return "index";
+        }
         return "addQuestionnaire";
     }
 
