@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <h1>Add New Question</h1>
+
+    <form method="POST" action="/addQuestion">
+        <input type="text" name="questionString" placeholder="Question Text" />
+
+        <select name="questionnaireId" required>
+            <option value="" disabled selected>Select Questionnaire</option>
+            <option th:each="q : ${questionnaires}" th:value="${q.id}" th:text="${q.name}"></option>
+        </select>
+
+        <input type="submit" value="Save" />
+    </form>
+
+    <form action="/index" method="get">
+        <button type="submit">Back</button>
+    </form>
+
+</body>
+
+</html>

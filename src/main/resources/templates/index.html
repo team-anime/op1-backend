@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" charset=UTF-8 />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Select endpoint</title>
 </head>
 <body>
-    <p>Select endpoint:</p>
-    <br />
-    <a href="addQuestionnaire">Add Questionnaire</a>
-    <br />
-    <a href="addQuestion">Add Question</a>
+    <h1>Questionnaires</h1>
+
+    <form action="/addQuestionnaire" method="get">
+        <button type="submit">Add Questionnaire</button>
+    </form>
+
+    <form action="/addQuestion" method="get">
+        <button type="submit">Add Question</button>
+    </form>
+
+    <div th:each="qr : ${questionnaires}">
+        <h2 th:text="${qr.name}">Questionnaire Name</h2>
+        <ul>
+            <li th:each="q : ${qr.questions}" th:text="${q.questionString}"></li>
+        </ul>
+    </div>
 </body>
 </html>

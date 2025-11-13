@@ -18,6 +18,9 @@ public class Question {
   @ManyToOne
   @JoinColumn(name = "questionnaireId")
   private Questionnaire questionnaire;
+  
+  public Question() {
+  }
 
   public Question(String questionString, Questionnaire questionnaire) {
     this.questionString = questionString;

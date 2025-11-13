@@ -4,33 +4,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import op1.Questionnaire.model.Question;
 import op1.Questionnaire.model.QuestionRepository;
+import op1.Questionnaire.model.Questionnaire;
 import op1.Questionnaire.model.QuestionnaireRepository;
 
 @Controller
 public class QuestionMVController {
 
     @Autowired
-    private QuestionRepository qRepository;
-    
+    private QuestionRepository questionRepository;
+
     @Autowired
-    private QuestionnaireRepository qrRepository;
+    private QuestionnaireRepository questionnaireRepository;
 
-    @GetMapping("/addquestion")
-    public String addQuestion(Model model) {
-        model.addAttribute("question", new Question(null, null)); 
-        model.addAttribute("questionnaires", qrRepository.findAll()); 
-        return "addQuestion"; 
+    @GetMapping("/addQuestion")
+    public String showForm(Model model) {
+        model.addAttribute("questionnaires", questionnaireRepository.findAll());
+        return "addQuestion";
     }
 
-    @PostMapping("/addquestion")
-    public String saveQuestion(@ModelAttribute Question question) {
-        
-        qRepository.save(question);
-        return "redirect:/questionnaires"; 
+    @PostMapping("/addQuestion")
+    public String saveQuestion(@RequestParam String questionString, @RequestParam Long questionnaireId) {
+
+        Questionnaire questionnaire = questionnaireRepository.findById(questionnaireId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid questionnaire id"));
+
+        Question question = new Question(questionString, questionnaire);
+
+        questionRepository.save(question);
+
+        return "redirect:/index";
     }
+
 }
