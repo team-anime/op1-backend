@@ -22,20 +22,24 @@ public class QuestionnaireApplication {
 	public CommandLineRunner testiData(QuestionnaireRepository questionnaireRepo) {
 		return args -> {
 			Questionnaire questionnaire = new Questionnaire("Yeaaaahhh testidataaa yeahhh");
-			Questionnaire questionnaire2 = new Questionnaire("Yeaaaahhh testidataaa kakkonen yeahhhhh");
+			Questionnaire questionnaire2 = new Questionnaire("Yeahbro testidata kakkonen yeahhhhh");
 
 			Question q1 = new Question("kylänäino", questionnaire);
 			Question q2 = new Question(":((((", questionnaire);
-			Question q3 = new Question("kylänäino", questionnaire2);
-			Question q4 = new Question(":((((", questionnaire2);
 
-			ArrayList<Question> questions = new ArrayList<>();
-			questions.add(q1);
-			questions.add(q2);
-			questions.add(q3);
-			questions.add(q4);
-			questionnaire.setQuestions(questions);
-			questionnaire2.setQuestions(questions);
+			ArrayList<Question> questions1 = new ArrayList<>();
+			questions1.add(q1);
+			questions1.add(q2);
+			
+			Question q3 = new Question("voiiiii #@^%#*", questionnaire2);
+			Question q4 = new Question("QwQ", questionnaire2);
+
+			ArrayList<Question> questions2 = new ArrayList<>();
+			questions2.add(q3);
+			questions2.add(q4);
+
+			questionnaire.setQuestions(questions1);
+			questionnaire2.setQuestions(questions2);
 
 			questionnaireRepo.save(questionnaire);
 			questionnaireRepo.save(questionnaire2);
