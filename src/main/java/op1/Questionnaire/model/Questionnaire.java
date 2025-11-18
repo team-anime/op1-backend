@@ -2,6 +2,8 @@ package op1.Questionnaire.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ public class Questionnaire {
     private String name;
 
     @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Question> questions;
 
     public Questionnaire() {
