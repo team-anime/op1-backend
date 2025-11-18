@@ -9,6 +9,7 @@ import op1.Questionnaire.model.QuestionRepository;
 
 import java.lang.foreign.Linker.Option;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,11 +39,15 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/questionnaires/{id}", method=RequestMethod.GET)
-    public @ResponseBody List<Question> findQuestions(@PathVariable("id") Long questionnaireId) {
+    public @ResponseBody Map<String, Object> findQuestions(@PathVariable("id") Long questionnaireId) {
         Optional<Questionnaire> q = questionnaireRepository.findById(questionnaireId);
+        Map<String, Object> l = new HashMap<>();
         List<Question> questions = q.get().getQuestions();
 
-        return questions;
+        l.put("name", q.get().getName());
+        l.put("questions", questions);
+  
+        return l;
     }
     
     
