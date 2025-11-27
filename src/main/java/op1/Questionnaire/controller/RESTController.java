@@ -6,6 +6,8 @@ import op1.Questionnaire.model.Questionnaire;
 import op1.Questionnaire.model.QuestionnaireRepository;
 import op1.Questionnaire.model.Question;
 import op1.Questionnaire.model.QuestionRepository;
+import op1.Questionnaire.model.QuestionAnswers;
+import op1.Questionnaire.model.QuestionAnswersRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,10 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RESTController {
     private final QuestionnaireRepository questionnaireRepository;
     private final QuestionRepository questionRepository;
+    private final QuestionAnswersRepository questionAnswerRepository;
 
-    public RESTController(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository) {
+
+    public RESTController(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionAnswersRepository questionAnswerRepository) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionRepository = questionRepository;
+        this.questionAnswerRepository = questionAnswerRepository;
     }
 
     @RequestMapping(value = "/questionnaires", method=RequestMethod.GET)
@@ -44,6 +50,16 @@ public class RESTController {
   
         return l;
     }
-    
+        @RequestMapping(value = "/answers", method = RequestMethod.POST)
+    public Answer saveAnswer(@RequestBody Map<String, Object> body) {
+        Long questionId = Long.valueOf(body.get("questionId").toString());
+        String answerText = body.get("answerText").toString();
+
+        Question question = questionRepository.findById(questionId)
+            .orElseThrow(() -> new RuntimeException("Invalid question ID"));
+
+        Answer answer = new Answer(answerText, question);
+        return answerRepository.save(answer);
+    }
     
 }
