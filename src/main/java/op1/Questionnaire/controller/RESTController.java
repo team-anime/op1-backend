@@ -20,26 +20,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 @RestController
 public class RESTController {
     private final QuestionnaireRepository questionnaireRepository;
     private final QuestionRepository questionRepository;
     private final QuestionAnswersRepository questionAnswerRepository;
 
-
-    public RESTController(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionAnswersRepository questionAnswerRepository) {
+    public RESTController(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository,
+            QuestionAnswersRepository questionAnswerRepository) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionRepository = questionRepository;
         this.questionAnswerRepository = questionAnswerRepository;
     }
 
-    @RequestMapping(value = "/questionnaires", method=RequestMethod.GET)
+    @RequestMapping(value = "/questionnaires", method = RequestMethod.GET)
     public List<Questionnaire> questionnaires() {
         return (List<Questionnaire>) questionnaireRepository.findAll();
     }
 
-    @RequestMapping(value = "/questionnaires/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/questionnaires/{id}", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> findQuestions(@PathVariable("id") Long questionnaireId) {
         Optional<Questionnaire> q = questionnaireRepository.findById(questionnaireId);
         Map<String, Object> l = new HashMap<>();
@@ -47,19 +46,20 @@ public class RESTController {
 
         l.put("name", q.get().getName());
         l.put("questions", questions);
-  
+
         return l;
     }
-        @RequestMapping(value = "/answers", method = RequestMethod.POST)
-    public Answer saveAnswer(@RequestBody Map<String, Object> body) {
+
+    @RequestMapping(value = "/questionAnswers", method = RequestMethod.POST)
+    public QuestionAnswers saveAnswer(@RequestBody Map<String, Object> body) {
         Long questionId = Long.valueOf(body.get("questionId").toString());
         String answerText = body.get("answerText").toString();
 
         Question question = questionRepository.findById(questionId)
-            .orElseThrow(() -> new RuntimeException("Invalid question ID"));
+                .orElseThrow(() -> new RuntimeException("Invalid question ID"));
 
-        Answer answer = new Answer(answerText, question);
-        return answerRepository.save(answer);
+        QuestionAnswers answer = new QuestionAnswers(answerText, question);
+        return questionAnswerRepository.save(answer);
     }
-    
+
 }
