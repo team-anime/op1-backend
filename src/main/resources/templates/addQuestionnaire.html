@@ -10,7 +10,12 @@
 <body>
     <h1>Add New Questionnaire</h1>
     <form method="POST" action="/addQuestionnaire">
-        <input type="text" name="name" placeholder="Questionnaire Name" required />
+        <textarea 
+            name="name" 
+            placeholder="Questionnaire Name"
+            style="width:30%; min-height:50%;"
+            required></textarea>
+            <br>
         <input type="submit" value="Save" />
     </form>
     <form action="/index" method="get">

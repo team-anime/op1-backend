@@ -10,13 +10,16 @@
     <h1>Add New Question</h1>
 
     <form method="POST" action="/addQuestion">
-        <input type="text" name="questionString" placeholder="Question Text" />
-
+        <textarea 
+        name="questionString" 
+        style="width:30%; min-height:50%;"
+        placeholder="Question Text"></textarea>
+        <br>
         <select name="questionnaireId" required>
             <option value="" disabled selected>Select Questionnaire</option>
             <option th:each="q : ${questionnaires}" th:value="${q.id}" th:text="${q.name}"></option>
         </select>
-
+        <br>
         <input type="submit" value="Save" />
     </form>
 
