@@ -49,7 +49,13 @@ public class RESTController {
 
         return l;
     }
-
+    /*
+     * demo data for saving answers
+     * {
+     *   "questionId": 1,
+     *   "answerText": "This is my answer"
+     * }
+     */
     @RequestMapping(value = "/questionAnswers", method = RequestMethod.POST)
     public QuestionAnswers saveAnswer(@RequestBody Map<String, Object> body) {
         Long questionId = Long.valueOf(body.get("questionId").toString());
