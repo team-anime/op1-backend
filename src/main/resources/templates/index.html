@@ -18,7 +18,9 @@
     <div th:each="qr : ${questionnaires}">
         <h2 th:text="${qr.name}">Questionnaire Name</h2>
         <ul>
-            <li th:each="q : ${qr.questions}" th:text="${q.questionString}"></li>
+            <li th:each="q : ${qr.questions}">
+                <span th:text="${q.questionString}"></span>
+            </li>
         </ul>
     </div>
 </body>
