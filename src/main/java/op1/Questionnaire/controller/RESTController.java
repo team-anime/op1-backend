@@ -44,6 +44,7 @@ public class RESTController {
         Map<String, Object> l = new HashMap<>();
         List<Question> questions = q.get().getQuestions();
 
+        l.put("id", q.get().getId());
         l.put("name", q.get().getName());
         l.put("questions", questions);
 
