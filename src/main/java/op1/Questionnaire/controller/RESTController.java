@@ -49,11 +49,12 @@ public class RESTController {
 
         return l;
     }
+
     /*
      * demo data for saving answers
      * {
-     *   "questionId": 1,
-     *   "answerText": "This is my answer"
+     * "questionId": 1,
+     * "answerText": "This is my answer"
      * }
      */
     @RequestMapping(value = "/questionAnswers", method = RequestMethod.POST)
@@ -66,6 +67,23 @@ public class RESTController {
 
         QuestionAnswers answer = new QuestionAnswers(answerText, question);
         return questionAnswerRepository.save(answer);
+    }
+
+    // katotaan toimiiko
+    @RequestMapping(value = "/questionAnswers/batch", method = RequestMethod.POST)
+    public List<QuestionAnswers> saveAllAnswers(@RequestBody Map<String, Object> body) {
+
+        List<Map<String, Object>> answers = (List<Map<String, Object>>) body.get("answers");
+
+        return answers.stream().map(a -> {
+            Long questionId = Long.valueOf(a.get("questionId").toString());
+            String answerText = a.get("answerText").toString();
+
+            Question question = questionRepository.findById(questionId)
+                    .orElseThrow(() -> new RuntimeException("Invalid question ID"));
+
+            return questionAnswerRepository.save(new QuestionAnswers(answerText, question));
+        }).toList();
     }
 
 }
