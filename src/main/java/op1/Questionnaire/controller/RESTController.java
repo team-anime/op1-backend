@@ -86,4 +86,9 @@ public class RESTController {
         }).toList();
     }
 
+    @RequestMapping(value = "/questionAnswers", method = RequestMethod.GET)
+    public List<QuestionAnswers> getAllAnswers() {
+        return (List<QuestionAnswers>) questionAnswerRepository.findAll();
+    }
+
 }
