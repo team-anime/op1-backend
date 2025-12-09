@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class RESTController {
@@ -49,6 +51,11 @@ public class RESTController {
         l.put("questions", questions);
 
         return l;
+    }
+
+    @RequestMapping(value = "/questionnaires/{id}/answers", method=RequestMethod.GET)
+    public List<QuestionAnswers> getQuestionnaireAnswers(@PathVariable("id") Long questionnaireId) {
+        return (List<QuestionAnswers>) questionAnswerRepository.findByQuestionnaireId(questionnaireId);
     }
 
     /*
@@ -97,7 +104,6 @@ public class RESTController {
             return questionAnswerRepository.save(new QuestionAnswers(answerText, question));
         }).toList();
     }
-
     @RequestMapping(value = "/questionAnswers", method = RequestMethod.GET)
     public List<QuestionAnswers> getAllAnswers() {
         return (List<QuestionAnswers>) questionAnswerRepository.findAll();
