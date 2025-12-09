@@ -52,7 +52,7 @@ public class RESTController {
     }
 
     /*
-     * demo data for saving answers
+     * demo data for saving answers (not tested)
      * {
      * "questionId": 1,
      * "answerText": "This is my answer"
@@ -70,7 +70,18 @@ public class RESTController {
         return questionAnswerRepository.save(answer);
     }
 
-    // katotaan toimiiko
+    /*
+     * demo data for saving answers
+     * [answers: {
+     * "questionId": 1,
+     * "answerText": "This is my answer"
+     * },
+     * {
+     * "questionId": 2,
+     * "answerText": "This is my answer to question 2"
+     * },
+     * ]
+     */
     @RequestMapping(value = "/questionAnswers/batch", method = RequestMethod.POST)
     public List<QuestionAnswers> saveAllAnswers(@RequestBody Map<String, Object> body) {
 
